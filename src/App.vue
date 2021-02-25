@@ -1,13 +1,12 @@
 <template>
   <div class="container">
     <global-header :user="user"></global-header>
-    <!-- <column-list :list="data"></column-list> -->
+    <column-list :list="data"></column-list>
     <form>
       <div class="mb-3">
         <label class="form-label">Email address</label>
-        <validate-input :rules="emailRules"></validate-input>
+        <validate-input id="xxx" :rules="emailRules"></validate-input>
       </div>
-      
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
@@ -72,7 +71,7 @@ export default defineComponent({
     return {
       data: testData,
       user: userData,
-      emailRules,
+      emailRules
     }
   }
 })
