@@ -38,7 +38,7 @@ export default defineComponent({
       if (props.rules) {
         // 是否全部通过标识
         const allPassed = props.rules.every(rule => {
-          let passed = false
+          let passed = true
           inputRef.message = rule.message
           switch (rule.type) {
             case 'required':
@@ -46,10 +46,14 @@ export default defineComponent({
               break;
             case 'email':
               passed = emailReg.test(inputRef.val.trim())
+              break;
             default:
               break;
           }
+          return passed
         })
+
+        inputRef.error = !allPassed
       }
     }
 
