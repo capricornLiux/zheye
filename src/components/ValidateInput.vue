@@ -35,11 +35,15 @@ export default defineComponent({
   },
   setup (props) {
     const inputRef = reactive({
+      // 双项绑定的值
       val: '',
+      // 校验是否有错误
       error: false,
+      // 校验错误的message
       message: ''
     })
 
+    // form-item 校验方法, input blur的时候触发调用
     const validateInput = () => {
       if (props.rules) {
         // 是否全部通过标识
