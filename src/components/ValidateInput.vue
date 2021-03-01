@@ -3,8 +3,9 @@
     <input type="text"
       class="form-control"
       :class="{'is-invalid': inputRef.error}"
-      v-model="inputRef.val"
+      :value="inputRef.val"
       @blur="validateInput"
+      @input="updateValue"
     >
     <span v-if="inputRef.error" class="invalid-feedback">{{inputRef.message}}</span>
   </div>
@@ -31,17 +32,26 @@ export default defineComponent({
       type: Array as PropType<RulesProp>,
       required: false,
       default: []
-    }
+    },
+    // v-model使用
+    modelValue: String
   },
-  setup (props) {
+  setup (props, context) {
     const inputRef = reactive({
       // 双项绑定的值
-      val: '',
+      val: props.modelValue || '',
       // 校验是否有错误
       error: false,
       // 校验错误的message
       message: ''
     })
+
+    // updateValue
+    const updateValue = (e: KeyboardEvent) => {
+      const targetValue = (e.target as HTMLInputElement).value
+      inputRef.val = targetValue
+      context.emit('update:modelValue', targetValue)
+    }
 
     // form-item 校验方法, input blur的时候触发调用
     const validateInput = () => {
@@ -69,7 +79,8 @@ export default defineComponent({
 
     return {
       inputRef,
-      validateInput
+      validateInput,
+      updateValue
     }
   }
 })

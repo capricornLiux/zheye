@@ -5,7 +5,8 @@
     <form>
       <div class="mb-3">
         <label class="form-label">Email address</label>
-        <validate-input id="xxx" :rules="emailRules"></validate-input>
+        <validate-input id="xxx" :rules="emailRules" v-model="emailVal"></validate-input>
+        {{emailVal}}
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
@@ -13,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import ColumnList, { ColumnProps } from './components/ColumnList.vue'
 import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
@@ -58,6 +59,7 @@ export default defineComponent({
     ValidateInput
   },
   setup () {
+    const emailVal = ref('abc@zheye.com')
     const emailRules: RulesProp = [
       {
         type: 'required',
@@ -71,7 +73,8 @@ export default defineComponent({
     return {
       data: testData,
       user: userData,
-      emailRules
+      emailRules,
+      emailVal
     }
   }
 })
